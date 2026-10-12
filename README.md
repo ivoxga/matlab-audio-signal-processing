@@ -9,6 +9,8 @@ A set of MATLAB functions for working with audio signals using the **FFT**, plus
 - recognize whether a voice is **male or female**;
 - find noise in a spectrum and **filter it out**.
 
+> Project developed for the course **Signal Processing**, BSc in **Electrical and Computer Engineering**, **Instituto Politécnico do Cávado e Ave (IPCA)**, **3rd year**.
+
 ---
 
 ## Repository structure
