@@ -136,49 +136,83 @@ The script cleans an audio file (`handel_J.wav`) that is corrupted with noise, u
 ---
 
 ## Formulas
-
+ 
 All the formulas used in the code.
-
-**Power spectrum** (`calcFFT`), where $x[n]$ are the $N$ samples of the signal:
-
-$$X[k] = \sum_{n=0}^{N-1} x[n]\,e^{-j 2\pi k n / N} \qquad P[k] = \frac{|X[k]|^2}{N}$$
-
+ 
+**Power spectrum** (`calcFFT`), where $`x[n]`$ are the $`N`$ samples of the signal:
+ 
+```math
+X[k] = \sum_{n=0}^{N-1} x[n] \, e^{-j 2\pi k n / N}
+```
+ 
+```math
+P[k] = \frac{|X[k]|^2}{N}
+```
+ 
 **One-sided spectrum**, doubling the values to compensate for the discarded negative frequencies:
-
-$$P_{1}[k] = \begin{cases} P[k], & k = 0 \ \text{ or } \ k = N/2 \\ 2\,P[k], & 0 < k < N/2 \end{cases}$$
-
+ 
+```math
+P_1[k] =
+\begin{cases}
+P[k], & k = 0 \text{ or } k = N/2 \\
+2 P[k], & 0 < k < N/2
+\end{cases}
+```
+ 
 **Frequency axis** (`calcFFT`):
-
-$$f[k] = \frac{k\,F_s}{N}, \qquad k = 0, 1, \dots, \left\lfloor \frac{N}{2} \right\rfloor$$
-
+ 
+```math
+f[k] = \frac{k \cdot F_s}{N}, \qquad k = 0, 1, \dots, \left\lfloor \frac{N}{2} \right\rfloor
+```
+ 
 **Time axis** (`plotAudioSignal`):
-
-$$t[n] = \frac{n}{F_s}, \qquad n = 0, 1, \dots, N-1$$
-
+ 
+```math
+t[n] = \frac{n}{F_s}, \qquad n = 0, 1, \dots, N-1
+```
+ 
 **Dominant frequency and gender** (`genderIdentification`):
-
-$$f_{dom} = f[k^*], \quad k^* = \arg\max_k P_1[k]$$
-
-$$d_M = |f_{dom} - 125| \qquad d_F = |f_{dom} - 200|$$
-
-$$\text{gender} = \begin{cases} \text{male}, & d_M < d_F \\ \text{female}, & \text{otherwise} \end{cases}$$
-
-**Normalized cutoff frequencies** of each band-stop filter (`filtragem_som.m`), with a band width $\Delta = 50$ Hz and the noise frequency $f_{noise}$:
-
-$$W_n = \left[ \frac{f_{noise} - \Delta/2}{F_s/2} \ , \ \frac{f_{noise} + \Delta/2}{F_s/2} \right]$$
-
-**Butterworth magnitude response**, for the low-pass prototype of order $n$ and cutoff $\omega_c$ (the band-stop filters are obtained from it by a frequency transformation, done by `butter`):
-
-$$|H(j\omega)|^2 = \frac{1}{1 + \left(\omega/\omega_c\right)^{2n}}$$
-
+ 
+```math
+f_{dom} = f[k_{dom}], \qquad k_{dom} = \arg\max_k P_1[k]
+```
+ 
+```math
+d_M = |f_{dom} - 125| \qquad d_F = |f_{dom} - 200|
+```
+ 
+```math
+\text{gender} =
+\begin{cases}
+\text{male}, & d_M < d_F \\
+\text{female}, & \text{otherwise}
+\end{cases}
+```
+ 
+**Normalized cutoff frequencies** of each band-stop filter (`filtragem_som.m`), with a band width $`\Delta = 50`$ Hz and the noise frequency $`f_{noise}`$:
+ 
+```math
+W_n = \left[ \frac{f_{noise} - \Delta/2}{F_s/2}, \ \frac{f_{noise} + \Delta/2}{F_s/2} \right]
+```
+ 
+**Butterworth magnitude response**, for the low-pass prototype of order $`n`$ and cutoff $`\omega_c`$ (the band-stop filters are obtained from it by a frequency transformation, done by `butter`):
+ 
+```math
+|H(j\omega)|^2 = \frac{1}{1 + (\omega/\omega_c)^{2n}}
+```
+ 
 **Magnitude in dB** (frequency response plot):
-
-$$|H(f)|_{dB} = 20 \log_{10} |H(f)|$$
-
+ 
+```math
+|H(f)|_{dB} = 20 \log_{10} |H(f)|
+```
+ 
 **Cascade of the two filters**:
-
-$$Y(z) = H_2(z)\,H_1(z)\,X(z)$$
-
+ 
+```math
+Y(z) = H_2(z) \, H_1(z) \, X(z)
+```
+ 
 ---
 
 ## Requirements
