@@ -13,7 +13,7 @@ A set of MATLAB functions for working with audio signals using the **FFT**, plus
 
 ---
  
-## Repository structure
+## Repository structure 
 
 ```
 .
